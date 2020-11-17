@@ -38,20 +38,20 @@ public class ProductController {
   public void addProduct(@RequestBody Product product) {
     productService.addProduct(product);
   }
-//
-//  // Example of a curl command to produce a PUT
-//  // curl -X PUT -H "Accept: text/json" -H "Content-type: application/json" -d \
-//  //   "{\"id\":\"ruby\",\"title\":\"Ruby on Rails\",\"description\":\"Introduction to Ruby on Rails\"}" \
-//  //   http://localhost:8080/products/100
-//  @RequestMapping(method=RequestMethod.PUT, value="/products/{id}")
-//  public void updateProduct(@RequestBody Product product, @PathVariable String id) {
-//    productService.updateProduct(id, product);
-//  }
-//
-//  // Example of a curl command to produce a DELETE
-//  // curl -X DELETE -H "Accept: text/json" -H "Content-type: application/json" http://localhost:8080/products/100
-//  @RequestMapping(method=RequestMethod.DELETE, value="/products/{id}")
-//  public void deleteProduct(@PathVariable String id) {
-//    productService.deleteProduct(id);
-//  }
+
+  // Example of a curl command to produce a PUT
+  // curl -X PUT -H "Accept: text/json" -H "Content-type: application/json" -d \
+  //   "{\"id\":100,\"title\":\"Ruby on Rails\",\"description\":\"updated Ruby on Rails\"}" \
+  //   http://localhost:8080/products/100
+  @RequestMapping(method=RequestMethod.PUT, value="/products/{id}")
+  public void updateProduct(@RequestBody Product product, @PathVariable Long id) {
+    productService.updateProduct(id, product);
+  }
+
+  // Example of a curl command to produce a DELETE
+  // curl -X DELETE -H "Accept: text/json" -H "Content-type: application/json" http://localhost:8080/products/100
+  @RequestMapping(method=RequestMethod.DELETE, value="/products/{id}")
+  public void deleteProduct(@PathVariable Long id) {
+    productService.deleteProduct(id);
+  }
 }
