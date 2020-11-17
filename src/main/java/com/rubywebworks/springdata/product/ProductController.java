@@ -2,6 +2,7 @@ package com.rubywebworks.springdata.product;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,17 +17,18 @@ public class ProductController {
   @Autowired   // marks this instance as needing to be dependency injected into this class.
   private ProductService productService;
 
-  @RequestMapping("/products") // mapping /topics web url to this method getAllTopics(), defaults to GET method.
-                             // Spring MVC auto magically converts the List<Topic> into JSON and returns it to the
-                             // caller, in this case the web browser.
+  @RequestMapping("/products")
+  // mapping /products web url to this method getAllProducts(), defaults to GET method.
+  // Spring MVC auto magically converts the List<Product> into JSON and returns it to the
+  // caller, in this case the web browser.
   public List<Product> getAllProducts() {
     return productService.getAllProducts();
   }
 
-//  @RequestMapping("/products/{productId}")
-//  public Product getProduct(@PathVariable("productId") String id) {
-//    return productService.getProduct(id);
-//  }
+  @RequestMapping("/products/{productId}")
+  public Optional<Product> getProduct(@PathVariable("productId") Long id) {
+    return productService.getProduct(id);
+  }
 
   // Example of a curl command to produce a POST
   // curl -H "Accept: text/json" -H "Content-type: application/json" -d \
