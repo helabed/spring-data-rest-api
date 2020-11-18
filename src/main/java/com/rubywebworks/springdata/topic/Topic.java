@@ -1,10 +1,21 @@
 package com.rubywebworks.springdata.topic;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "topics")
 public class Topic {
 
+  @Id
   private String id;
   private String name;
   private String description;
+
+  public Topic() {
+    super();
+  }
 
   public Topic(String id, String name, String description) {
     super();

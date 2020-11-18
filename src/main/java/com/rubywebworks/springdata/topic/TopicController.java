@@ -2,6 +2,7 @@ package com.rubywebworks.springdata.topic;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,7 @@ public class TopicController {
   }
 
   @RequestMapping("/topics/{topicId}")
-  public Topic getTopic(@PathVariable("topicId") String id) {
+  public Optional<Topic> getTopic(@PathVariable("topicId") String id) {
     return topicService.getTopic(id);
   }
 
