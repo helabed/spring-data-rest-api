@@ -20,8 +20,10 @@ public class CourseService {
   }
 
   public List<Course> getAllCoursesByTopicId(String topicId) {
+    log("topicId: "+ topicId);
     List<Course> courses = new ArrayList<>();
-    courseRepository.findAll().forEach(courses::add);
+    courseRepository.findByTopicId(topicId).forEach(courses::add);
+    log("courses: "+ courses);
     return courses;
   }
 
@@ -37,7 +39,11 @@ public class CourseService {
     courseRepository.save(course);
   }
 
-  public void deleteTopic(String id) {
+  public void deleteCourse(String id) {
     courseRepository.deleteById(id);
+  }
+
+  public void log(String message) {
+    System.out.println(message);
   }
 }

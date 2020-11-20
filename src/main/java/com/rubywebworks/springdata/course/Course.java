@@ -30,12 +30,12 @@ public class Course {
     this.description = description;
   }
 
-  public Course(String id, String name, String description, String topicId) {
+  public Course(String id, String name, String description, Topic topic) {
     super();
     this.id = id;
     this.name = name;
     this.description = description;
-    this.setTopic(new Topic(topicId, "", ""));
+    this.topic = topic;
   }
 
   public String getId() {
@@ -63,5 +63,18 @@ public class Course {
 
   public void setTopic(Topic topic) {
     this.topic = topic;
+  }
+
+  public String toString() {
+   return (  "\nCourse: \n" +
+       "\t id: " + this.id + "\n" +
+       "\t name: " + this.name + "\n" +
+       "\t description: " + this.description + "\n" +
+       "\t topic: " + this.topic + "\n"
+     );
+  }
+
+  public void log(String message) {
+    System.out.println(message);
   }
 }

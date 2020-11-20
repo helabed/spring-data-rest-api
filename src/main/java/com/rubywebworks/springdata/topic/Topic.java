@@ -42,4 +42,16 @@ public class Topic {
   public void setDescription(String description) {
     this.description = description;
   }
+
+  public String toString() {
+   return (  "\nTopic: \n" +
+       "\t id: " + this.id + "\n" +
+       "\t name: " + this.name + "\n" +
+       "\t description: " + this.description + "\n"
+     );
+  }
+
+  public void log(String message) {
+    System.out.println(message);
+  }
 }

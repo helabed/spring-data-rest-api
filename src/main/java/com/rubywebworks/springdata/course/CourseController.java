@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rubywebworks.springdata.topic.Topic;
+import com.rubywebworks.springdata.topic.TopicService;
 
 @RestController
 public class CourseController {
 
   @Autowired   // marks this instance as needing to be dependency injected into this class.
   private CourseService courseService;
+
+  @Autowired   // marks this instance as needing to be dependency injected into this class.
+  private TopicService topicService;
 
   @RequestMapping("/courses")
   // mapping /courses web url to this method getAllTopics(), defaults to GET method.
@@ -52,15 +56,19 @@ public class CourseController {
 
   @RequestMapping(method=RequestMethod.POST, value="/topics/{topicId}/courses")
   public void addCourseByTopicId(@RequestBody Course course, @PathVariable("topicId") String topicId) {
-    Topic topic = new Topic(topicId, "", "");
-    course.setTopic(topic);
+    if (topicId != null) {
+      Optional<Topic> result = topicService.getTopic(topicId);
+      if( result.isPresent() ) {
+        course.setTopic(result.get());
+      }
+    }
     courseService.addCourse(course);
   }
 
   // Example of a curl command to produce a PUT
   // curl -X PUT -H "Accept: text/json" -H "Content-type: application/json" -d \
   //   "{\"id\":\"ruby\",\"name\":\"Ruby on Rails\",\"description\":\"Introduction to Ruby on Rails\"}" \
-  //   http://localhost:8080/courses/rub
+  //   http://localhost:8080/courses/ruby
   @RequestMapping(method=RequestMethod.PUT, value="/courses/{id}")
   public void updateCourse(@RequestBody Course course, @PathVariable String id) {
     courseService.updateCourse(id, course);
@@ -68,15 +76,26 @@ public class CourseController {
 
   @RequestMapping(method=RequestMethod.PUT, value="/topics/{topicId}/courses/{id}")
   public void updateCourseByTopicId(@RequestBody Course course, @PathVariable String id, @PathVariable("topicId") String topicId) {
-    Topic topic = new Topic(topicId, "", "");
-    course.setTopic(topic);
+    if (topicId != null) {
+      Optional<Topic> result = topicService.getTopic(topicId);
+      if( result.isPresent() ) {
+        course.setTopic(result.get());
+      }
+    }
     courseService.updateCourse(id, course);
   }
 
   // Example of a curl command to produce a DELETE
   // curl -X DELETE -H "Accept: text/json" -H "Content-type: application/json" http://localhost:8080/courses/ruby
   @RequestMapping(method=RequestMethod.DELETE, value="/courses/{id}")
-  public void deleteTopic(@PathVariable String id) {
-    courseService.deleteTopic(id);
+  public void deleteCourse(@PathVariable String id) {
+    courseService.deleteCourse(id);
+  }
+
+  // Example of a curl command to produce a DELETE
+  // curl -X DELETE -H "Accept: text/json" -H "Content-type: application/json" http://localhost:8080/topics/ruby/courses/ruby_course2
+  @RequestMapping(method=RequestMethod.DELETE, value="/topics/{topicId}/courses/{id}")
+  public void deleteCourse(@PathVariable String id, @PathVariable("topicId") String topicId) {
+    courseService.deleteCourse(id);
   }
 }
