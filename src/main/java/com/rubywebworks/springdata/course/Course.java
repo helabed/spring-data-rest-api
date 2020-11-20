@@ -2,7 +2,10 @@ package com.rubywebworks.springdata.course;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.rubywebworks.springdata.topic.Topic;
 
 @Entity
 @Table(name = "courses")
@@ -13,6 +16,9 @@ public class Course {
   private String name;
   private String description;
 
+  @ManyToOne
+  private Topic topic;
+
   public Course() {
     super();
   }
@@ -22,6 +28,14 @@ public class Course {
     this.id = id;
     this.name = name;
     this.description = description;
+  }
+
+  public Course(String id, String name, String description, String topicId) {
+    super();
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.setTopic(new Topic(topicId, "", ""));
   }
 
   public String getId() {
@@ -41,5 +55,13 @@ public class Course {
   }
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  public Topic getTopic() {
+    return topic;
+  }
+
+  public void setTopic(Topic topic) {
+    this.topic = topic;
   }
 }

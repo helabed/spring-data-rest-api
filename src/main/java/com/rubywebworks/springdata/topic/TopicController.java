@@ -17,9 +17,10 @@ public class TopicController {
   @Autowired   // marks this instance as needing to be dependency injected into this class.
   private TopicService topicService;
 
-  @RequestMapping("/topics") // mapping /topics web url to this method getAllTopics(), defaults to GET method.
-                             // Spring MVC auto magically converts the List<Topic> into JSON and returns it to the
-                             // caller, in this case the web browser.
+  @RequestMapping("/topics")
+  // mapping /topics web url to this method getAllTopics(), defaults to GET method.
+  // Spring MVC auto magically converts the List<Topic> into JSON and returns it to the
+  // caller, in this case the web browser.
   public List<Topic> getAllTopics() {
     return topicService.getAllTopics();
   }

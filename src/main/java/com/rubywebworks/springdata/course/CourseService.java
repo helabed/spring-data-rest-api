@@ -19,6 +19,12 @@ public class CourseService {
     return courses;
   }
 
+  public List<Course> getAllCoursesByTopicId(String topicId) {
+    List<Course> courses = new ArrayList<>();
+    courseRepository.findAll().forEach(courses::add);
+    return courses;
+  }
+
   public void addCourse(Course course) {
     courseRepository.save(course);
   }
